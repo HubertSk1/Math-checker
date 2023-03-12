@@ -1,6 +1,7 @@
 import streamlit as st
+from GameSession import Session
 
-
+from time import sleep
 class MainPage():
     def __init__(self):
         #Rodzaj Zadania
@@ -9,7 +10,7 @@ class MainPage():
 
         # Rodzaj Odpowiedzi 
         options_for_answers = ["pytania otwarte", "pytania zamknięte" ]
-        self.selected_anwser_type = st.sidebar.selectbox("Wybierz rodzaj pytań", options_for_answers)
+        self.selected_answer_type = st.sidebar.selectbox("Wybierz rodzaj pytań", options_for_answers)
 
         # Tryb Aplikacji 
         options_for_mode = ["trening", "sprawdzian" ]
@@ -20,16 +21,15 @@ class MainPage():
         with col1:
             pass
         with col2:
-            self.start_button = st.button('Start')
+            self.start_button = st.button('Start', on_click=self.create_session)
         with col3:
             self.stop_button = st.button('Stop')
         with col4 :
             pass
-        self.Sesja = None
-    
-    def create_session(self):
+        self.session = None
         
-
+    def create_session(self):
+        self.session = Session(self.selected_task_type, self.selected_answer_type, self.selected_game_type) 
 
 
 A = MainPage()
