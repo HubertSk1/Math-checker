@@ -5,12 +5,13 @@ from time import sleep
 class MainPage():
     def __init__(self):
         #Rodzaj Zadania
-        options_for_questions = ["Mnożenie", "Dzielenie", "Dodawanie", "Potęgowanie"]
+        options_for_questions = ["Mnożenie 0-10", "Dzielenie 0-10", "Dodawanie 0-1000", "Odejmowanie 0-1000","Mnożenie 0-100","Dzielenie 0-100"]
         self.selected_task_type = st.sidebar.selectbox("Wybierz typ wyzwania", options_for_questions)
 
-        # Rodzaj Odpowiedzi 
-        options_for_answers = ["pytania otwarte", "pytania zamknięte" ]
-        self.selected_answer_type = st.sidebar.selectbox("Wybierz rodzaj pytań", options_for_answers)
+        # # Rodzaj Odpowiedzi 
+        # options_for_answers = ["pytania otwarte", "pytania zamknięte" ]
+        # self.selected_answer_type = st.sidebar.selectbox("Wybierz rodzaj pytań", options_for_answers)
+        self.selected_answer_type = "dupa"    
 
         # Tryb Aplikacji 
         options_for_mode = ["trening", "sprawdzian" ]
