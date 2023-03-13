@@ -4,6 +4,7 @@ from random import randint
 from Task import Task
 
 
+
 class Session():
     def __init__(self, task, answer, game):
         #Settings

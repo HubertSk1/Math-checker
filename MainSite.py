@@ -1,5 +1,6 @@
 import streamlit as st
 from GameSession import Session
+from Mail.Mail_Sender import MailSender
 
 from time import sleep
 class MainPage():
