@@ -3,8 +3,6 @@ from SesssionClock import Clock
 from random import randint
 from Task import Task
 
-
-
 class Session():
     def __init__(self, task, answer, game):
         #Settings
@@ -13,7 +11,7 @@ class Session():
         self.game = game
          
         #Tasks  
-        self.total_tasks = 25
+        self.total_tasks = 1
         self.solved_tasks = 0 
         self.current_task_number = 0
         self.inserted_answer = None
@@ -30,9 +28,11 @@ class Session():
 
     def create_next_task(self):
         self.current_task_number += 1
-        self.current_task = Task(self.task)
-        self.generate_task_layout()
-
+        if self.current_task_number <= self.total_tasks:
+            self.current_task = Task(self.task)
+            self.generate_task_layout()
+        else :
+            self.generate_summary_layout()
 
     def show_the_answer(self):
         answer = st.session_state["answer"]
@@ -43,8 +43,9 @@ class Session():
             self.generate_task_layout()
             return
         
-        if answer_converted == self.current_task.result:
-            st.write("super , twoja odpowiedź była poprawna")
+        if answer_converted == self.current_task.result and  self.current_task_number <= self.total_tasks :
+            if self.current_task_number != self.total_tasks:
+                st.write("super , twoja odpowiedź była poprawna")
             self.create_next_task()
         else:
             st.write("twoja odpowiedź była błędna, spróbuj ponownie")
@@ -55,6 +56,11 @@ class Session():
         form = st.form("my_form", clear_on_submit = True)
         form.markdown(f'<p style="text-align: center;font-size:40px">{self.current_task.equation}</p>',unsafe_allow_html = True)
         form.text_input("title", value="", label_visibility = "hidden",key="answer")
-        form.form_submit_button("Check", on_click = self.show_the_answer)
+        form.columns(5)[4].form_submit_button("Sprawdź", on_click = self.show_the_answer)
 
+
+    def generate_summary_layout(self):
+        st.markdown(f'<p style="text-align: center;font-size:35px">Gratulacje, udało ci się ukończyć serię zadań! !</p>', unsafe_allow_html= True)
+        st.write(f'ilość poprawnie wykonanych zadań: {self.total_tasks}')
+        st.write(f'czas :  {self.seconds_counter} sekund')
 
